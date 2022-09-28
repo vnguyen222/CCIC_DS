@@ -1,27 +1,27 @@
-# powers = [[1, 2, 3], [4, 5, 6]]
+# def get_missing_letters(str):
+#     missing_str = ""
 
-# index = 0
+#     for x in range(97, 123):
+#         if chr(x) not in str:
+#             missing_str += chr(x)
+    
+#     return missing_str
 
-# for row in powers:
-#     for num in row:
-#         num = num ** num
-#         print(num)
-#     index = index + 1
+# print(get_missing_letters("abcdefgpqrstuvwxyz"))
+# print(get_missing_letters("zyxwvutsrq"))
+# print(get_missing_letters("abc"))
+# print(get_missing_letters("abcdefghijklmnopqrstuvwxyz"))
 
-# print(powers[1][2])
+binary = [1,0,0]
 
+def convert(bin):
+    # powers = [1,2,4,8,16,32,64,128,256]
+    powers = [256,128,64,32,16,8,4,2,1]
+    dec = 0
 
-powers = [[1, 2, 3], [4, 5, 6]]
+    for bit in range(len(bin)-1, -1, -1):
+        dec = dec + bin[bit] * powers[len()]
+    
+    return dec
 
-index = 0
-
-
-for row in powers:
-    for num in row:
-        # print(row[index])
-        row[index] = pow(row[index], row[index])
-        print(row[index])
-    index = index + 1
-    # index = 0
-
-print(powers[1][2])
+print(convert(binary))
