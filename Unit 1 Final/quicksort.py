@@ -1,4 +1,6 @@
+########################
 # GENERATION OF LIST
+########################
 
 from random import randint
 
@@ -8,9 +10,12 @@ def GENERATE_LIST(length, range_bounds = [0, 100000]):
         list.append(randint(range_bounds[0], range_bounds[1]))
     return list
 
-# unsorted_list = GENERATE_LIST(10, [0, 40])
+
+########################
+# QUICK SORT
+########################
+
 unsorted_list = [1,64,32,3,4,5,10,34,65,7,8]
-print(unsorted_list)
 
 def quicksort(list, start, end):
     if start < end:
@@ -40,5 +45,23 @@ def partition(list_p, start, end):
     return lower_index+1
 
 
+# TESTING
+from time import time
 
-print(quicksort(unsorted_list, 0, len(unsorted_list)-1))
+# 10, 50, 1000, 50000, 1500000
+def time_trials(list_of_len):
+    times = []
+    for x in list_of_len:
+        list = GENERATE_LIST(x)
+        print("Generated list of", x)
+        start = time()
+        quicksort(list, 0, len(list)-1)
+        end = time()
+        print("List of", x, "elements sorted.")
+        delta = end - start
+        times.append([x, delta])
+        print("Done in", delta, "seconds \n\n")
+    return times
+
+runs = time_trials([2, 10, 50, 1000, 50000, 100000, 135325, 250000, 500000, 750000, 1000000, 1500000, 2000000, 5000000, 10000000, 20000000])
+print(runs)
