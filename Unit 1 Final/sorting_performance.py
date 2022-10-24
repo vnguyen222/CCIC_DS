@@ -151,7 +151,6 @@ def half_sorted_mem_1(list_of_len, random_range=[-1000000, 1000000]):
         split_second_half = list[split:]
         list = split_first_half + split_second_half
 
-        print("Initially sorted")
         tracemalloc.start() # START MEMORY TRACKING
         x1, y1 = tracemalloc.get_traced_memory()
         quicksort(list, 0, len(list)-1)
@@ -179,7 +178,6 @@ def half_sorted_mem_2(list_of_len, random_range=[-1000000, 1000000]):
         print("Initially sorted second half")
         list = split_first_half + split_second_half
 
-        print("Initially sorted")
         tracemalloc.start() # START MEMORY TRACKING
         x1, y1 = tracemalloc.get_traced_memory()
         quicksort(list, 0, len(list)-1)
