@@ -16,7 +16,10 @@ def GENERATE_LIST(length):
         list.append(randint(range_bounds[0], range_bounds[1]))
     return list
 
-
+def dump_to_file(list):
+    with open("dump.txt", "w") as f:
+        for entry in list:
+            f.write(str(entry) + "\n")
 
 ########################
 # EXECUTION OF SORTING
@@ -69,7 +72,7 @@ if __name__ == "__main__":
     # personal_elements = [2, 10, 50, 1000, 50000, 100000, 135325, 250000, 500000, 750000, 1000000, 1500000, 2000000, 5000000, 10000000, 20000000]
     power_2 = exponential_list(1500000)
 
-    OPTION = 2
+    OPTION = 5
     # Fully RANDOM - TIME       1
     # FIRST HALF SORTED - TIME  2
     # SECOND HALF SORTED - TIME 3
@@ -98,6 +101,8 @@ if __name__ == "__main__":
         print(times, end="\n\n")
         for x in range(0, len(times)):
             print(str(power_2[x]) + "\t\t" + str(times[x]))
+        
+        dump_to_file(times)
 
     elif OPTION == 2:
         times = []
@@ -125,6 +130,8 @@ if __name__ == "__main__":
         print(times, end="\n\n")
         for x in range(0, len(times)):
             print(str(power_2[x]) + "\t\t" + str(times[x]))
+        
+        dump_to_file(times)
 
     elif OPTION == 3:
         times = []
@@ -153,6 +160,8 @@ if __name__ == "__main__":
         for x in range(0, len(times)):
             print(str(power_2[x]) + "\t\t" + str(times[x]))
 
+        dump_to_file(times)
+
     elif OPTION == 4:
         times = []
 
@@ -176,6 +185,8 @@ if __name__ == "__main__":
         for x in range(0, len(times)):
             print(str(power_2[x]) + "\t\t" + str(times[x]))
 
+        dump_to_file(times)
+
 
     elif OPTION == 5:
         mem_usage = []
@@ -194,6 +205,8 @@ if __name__ == "__main__":
         print(mem_usage, end="\n\n")
         for x in range(0, len(mem_usage)):
             print(str(power_2[x]) + "\t\t" + str(mem_usage[x]))
+
+        dump_to_file(mem_usage)
 
     elif OPTION == 6:
         mem_usage = []
@@ -221,6 +234,8 @@ if __name__ == "__main__":
         print(mem_usage, end="\n\n")
         for x in range(0, len(mem_usage)):
             print(str(power_2[x]) + "\t\t" + str(mem_usage[x]))
+        
+        dump_to_file(mem_usage)
 
     elif OPTION == 7:
         mem_usage = []
@@ -249,6 +264,8 @@ if __name__ == "__main__":
         for x in range(0, len(mem_usage)):
             print(str(power_2[x]) + "\t\t" + str(mem_usage[x]))
 
+        dump_to_file(mem_usage)
+
     elif OPTION == 8:
         mem_usage = []
 
@@ -271,3 +288,5 @@ if __name__ == "__main__":
         print(mem_usage, end="\n\n")
         for x in range(0, len(mem_usage)):
             print(str(power_2[x]) + "\t\t" + str(mem_usage[x]))
+
+        dump_to_file(mem_usage)

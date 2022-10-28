@@ -1,44 +1,6 @@
-# GENERATION OF LIST
+data = [[2, 5.7220458984375e-06], [10, 1.4781951904296875e-05], [50, 7.009506225585938e-05], [1000, 0.002058267593383789], [50000, 0.15259289741516113], [100000, 0.3997819423675537], [135325, 0.46625709533691406], [250000, 0.899202823638916], [500000, 2.0694050788879395], [750000, 3.369703531265259], [1000000, 4.736757040023804], [1500000, 6.821716070175171], [2000000, 10.088279724121094], [5000000, 32.48980736732483], [10000000, 75.72361731529236], [20000000, 208.4891061782837]]
 
-from random import randint
-
-def GENERATE_LIST(length, range_bounds = [0, 100000]):
-    list = []
-    for x in range(length):
-        list.append(randint(range_bounds[0], range_bounds[1]))
-    return list
-
-# unsorted_list = GENERATE_LIST(10, [0, 40])
-unsorted_list = [1,64,32,3,4,5,10,34,65,7,8]
-print(unsorted_list)
-
-def quicksort(list, start, end):
-    if start < end:
-        partition_index = partition(list, start, end)
-        quicksort(list, start, partition_index - 1)
-        quicksort(list, partition_index+1, end)
-    
-    return list
-
-def partition(list_p, start, end):
-    pivot = list_p[end]
-    lower_index = start-1
-    for x in range(start, end):
-        if (list_p[x] < pivot):
-            lower_index += 1
-            
-            # Swap
-            temp = list_p[lower_index]
-            list_p[lower_index] = list_p[x]
-            list_p[x] = temp
-    
-    # Swap
-    temp = list_p[lower_index+1]
-    list_p[lower_index+1] = list_p[end]
-    list_p[end] = temp
-
-    return lower_index+1
-
-
-
-print(quicksort(unsorted_list, 0, len(unsorted_list)-1))
+for entry in data:
+    for x in entry:
+        print(float(x), end="\t\t")
+    print()
