@@ -11,7 +11,8 @@ def quicksort(list, start, end):
     return list
 
 def partition(list_p, start, end):
-    pivot = list_p[end]
+    # pivot = list_p[end]
+    pivot = list_p[start]
     lower_index = start-1
     for x in range(start, end):
         if (list_p[x] < pivot):
@@ -34,5 +35,5 @@ def partition(list_p, start, end):
 
 
 if __name__ == "__main__":
-    unsorted_list = [1,64,32,3,4,5,10,34,65,7,8]
+    unsorted_list = [45,6,11,2,4,53,2,6,54,34,5,63,4,5,50]
     print("Sorted:", quicksort(unsorted_list, 0, len(unsorted_list)-1))
