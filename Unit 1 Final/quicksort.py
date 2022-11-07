@@ -6,9 +6,7 @@ def quicksort(list, start, end):
     if start < end:
         partition_index = partition(list, start, end)
         quicksort(list, start, partition_index - 1)
-        quicksort(list, partition_index+1, end)
-    
-    return list
+        quicksort(list, partition_index+1, end)    
 
 def partition(list_p, start, end):
     # pivot = list_p[end]

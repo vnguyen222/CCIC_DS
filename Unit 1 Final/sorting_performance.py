@@ -123,7 +123,7 @@ if __name__ == "__main__":
     # personal_elements = [2, 10, 50, 1000, 50000, 100000, 135325, 250000, 500000, 750000, 1000000, 1500000, 2000000, 5000000, 10000000, 20000000]
     power_2 = exponential_list(1500000)
 
-    OPTION = 1
+    OPTION = 4
     # Fully RANDOM - TIME       1
     # FIRST HALF SORTED - TIME  2
     # SECOND HALF SORTED - TIME 3
