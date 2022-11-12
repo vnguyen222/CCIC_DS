@@ -1,0 +1,43 @@
+@font-face {
+    font-family: Poppins-Bold;
+    src: url(Poppins/Poppins-Bold.ttf);
+}
+@font-face {
+    font-family: Sono;
+    src: url(Sono-VariableFont.ttf);
+}
+
+body
+{
+    background-color: #222222;
+}
+
+#wrapper
+{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 100%;
+}
+
+
+#title
+{
+    justify-content: center;
+    align-self: center;
+}
+
+#maintitle
+{
+    font-size: 3em;
+}
+#subtitle
+{
+    font-family: Sono;
+    font-size: 1.5em;
+}
+.landingpage_text
+{
+    font-family: Poppins-Bold;
+    color: white;
+}
