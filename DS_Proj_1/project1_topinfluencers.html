@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>PROJECT 1</title>
-    <link rel="stylesheet" href="project1_topinfluencers.css">
-</head>
+    <head>
+        <title>PROJECT 1</title>
+        <link rel="stylesheet" href="../format.css">
+    </head>
 
-<body>
+    <body>
+        <div id="wrapper">
+            <span id="menu">
+                <a href="../index.html" class="menu_buttons"><- Back to Home Page</a>
+            </span>
 
-</body>
-    <div id="wrapper">
-        <span id="menu">
-            <a href="../index.html" class="menu_buttons"><- Back to Home Page</a>
-        </span>
+            <div id="surround-content">
+                <h1>Project 1: Top Influencers</h1>
+                <hr/>
 
-        <div id="surround-content">
-            <h1>Project 1: Top Influencers</h1>
-            <hr/>
+                <h2>Question</h2>
+                <div class="text">What metrics affect the influencer score? How do they affect it? What is the relationship between the different metrics and influencer scores?</div>
 
-            <h2>Question</h2>
-            <div class="text">What metrics affect the influencer score? How do they affect it? What is the relationship between the different metrics and influencer scores?</div>
+                <h2>Why do we care?</h2>
+                <div class="text">We deal with celebrities constantly. From seeing them on social media to watching movies with them in it. Therefore, their influence score on social media is important because it exemplifies how many people they reach and the level of impact they have. It is important to know what metrics affect the influencer score to learn how it can be manipulated and reveal whether there are biases or flaws with the influencer score system. </div>
 
-            <h2>Why do we care?</h2>
-            <div class="text">We deal with celebrities constantly. From seeing them on social media to watching movies with them in it. Therefore, their influence score on social media is important because it exemplifies how many people they reach and the level of impact they have. It is important to know what metrics affect the influencer score to learn how it can be manipulated and reveal whether there are biases or flaws with the influencer score system. </div>
+                <h2>Approach to answering the question</h2>
+                <div class="text">I used the dataset of <i>Top Influencers Crushing</i> On Instagram from Kaggle. It was last updated a month ago. The statistics that were chosen to focus on were the influence score, followers, average likes, number of posts, and the total number of likes. We had the influence score and the dependent variable and the other statistics as the independent variables.</div>
 
-            <h2>Approach to answering the question</h2>
-            <div class="text">I used the dataset of <i>Top Influencers Crushing</i> On Instagram from Kaggle. It was last updated a month ago. The statistics that were chosen to focus on were the influence score, followers, average likes, number of posts, and the total number of likes. We had the influence score and the dependent variable and the other statistics as the independent variables.</div>
+                <h2>Findings</h2>
+                <div class="text">
+                    <img src="graphs/followersv.png">
+                    <img src="graphs/avglikesv.png">
+                    <img src="graphs/totallikesv.png">
+                    <img src="graphs/postsv.png">
+                    <img src="graphs/metrics.png">
+                    <img src="graphs/correlationcoefficient.png">
+                </div>
 
-            <h2>Findings</h2>
-            <div class="text">
-                <img src="graphs/followersv.png">
-                <img src="graphs/avglikesv.png">
-                <img src="graphs/totallikesv.png">
-                <img src="graphs/postsv.png">
-                <img src="graphs/metrics.png">
-                <img src="graphs/correlationcoefficient.png">
-            </div>
+                <h2>Analysis</h2>
+                <div class="text">
+                    We find a similar pattern in all the graphs with a weak positive linear relationship with multiple outliers. We can conclude that the <b>number of followers and the number of total likes affect the influence score</b> the most. However, <b>average likes and posts do not seem to affect the score as much as expected.</b>
+                </div>
 
-            <h2>Analysis</h2>
-            <div class="text">
-                We find a similar pattern in all the graphs with a weak positive linear relationship with multiple outliers. We can conclude that the <b>number of followers and the number of total likes affect the influence score</b> the most. However, <b>average likes and posts do not seem to affect the score as much as expected.</b>
-            </div>
-
-            <h2>Validity</h2>
-            <div class="text">
-                The only threat to validity would be the data from Kaggle itself and how and when it was sourced. The data seems to match the correct metrics but we have no idea how trustworthy the influence score is. We know it was updated about a month ago and that the influencers listed are real.
+                <h2>Validity</h2>
+                <div class="text">
+                    The only threat to validity would be the data from Kaggle itself and how and when it was sourced. The data seems to match the correct metrics but we have no idea how trustworthy the influence score is. We know it was updated about a month ago and that the influencers listed are real.
+                </div>
             </div>
         </div>
-    </div>
+    </body>
+    
 </html>

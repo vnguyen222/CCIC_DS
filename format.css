@@ -1,0 +1,112 @@
+@font-face {
+    font-family: Poppins-Bold;
+    src: url(../websiteresources/Poppins/Poppins-Bold.ttf);
+}
+@font-face {
+    font-family: Poppins-SemiBold;
+    src: url(../websiteresources/Poppins/Poppins-SemiBold.ttf);
+}
+@font-face {
+    font-family: Poppins-Medium;
+    src: url(../websiteresources/Poppins/Poppins-Medium.ttf);
+}
+@font-face {
+    font-family: Sono;
+    src: url(../websiteresources/Sono-VariableFont.ttf);
+}
+
+
+body
+{
+    background-color: #121212;
+}
+
+#wrapper
+{
+    display: grid;
+    grid-template-columns: 22vw 1fr 22vw;
+    /* height: 97vh; */
+    height: 100%;
+    padding-top: 0.5em;
+}
+
+
+#surround-content
+{
+    grid-column: 2;
+    background-color: #353535;
+    width: 91%;
+    overflow: visible;
+    border-radius: 0.5em;
+    padding: 2.5em;
+}
+
+h1
+{
+    color: white;
+    font-family: Poppins-Bold;
+    font-size: 3em;
+    margin: 0;
+    padding: 0;
+}
+h2
+{
+    color: white;
+    font-family: Poppins-SemiBold;
+    font-size: 1.5em;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+h3
+{
+    color: white;
+    font-family: Poppins-Medium;
+    font-size: 1.2em;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+hr
+{
+    height: 2px;
+    color: white;
+    background-color: white;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+
+.text
+{
+    color: white;
+    font-family: Sono;
+    font-size: 1em;
+}
+
+
+
+/* MENU */
+/* Menu options */
+#menu
+{
+    grid-row: 1;
+    grid-column: 1;
+    display: flex;
+    height: 3.3em;
+}
+
+.menu_buttons
+{
+    font-family: Sono;
+    font-weight: 400;
+    color: white;
+    text-decoration: none;
+    padding: 1em;
+    border-radius: 0.5em;
+    transition: 0.4s;
+}
+.menu_buttons:hover
+{
+    background-color: #353535;
+    text-decoration: none;
+    transition: 0.4s;
+}
