@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 596,
+   "execution_count": 905,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -13,7 +13,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 597,
+   "execution_count": 906,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -31,7 +31,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 598,
+   "execution_count": 907,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -52,20 +52,29 @@
     "        self.down = 0\n",
     "        self.left = 0\n",
     "        self.right = 0\n",
-    "        self.q_score = 0\n",
+    "        # self.q_score = 0\n",
     "    \n",
     "    def get_state(self):\n",
     "        return self.state\n",
     "    def get_positions(self):\n",
     "        return {\"up\": self.up, \"down\": self.down, \"left\": self.left, \"right\": self.right}\n",
-    "    def get_qscore(self):\n",
-    "        return self.q_score\n",
+    "    # def get_qscore(self):\n",
+    "    #     return self.q_score\n",
     "\n",
-    "    def update_positions(self, new_positions):\n",
-    "        for key, value in new_positions.values():\n",
-    "            pass\n",
-    "    def update_qscore(self, new_val):\n",
-    "        self.q_score = new_val\n",
+    "    def add_to_positions(self, increment, position):\n",
+    "        match position:\n",
+    "            case \"up\":\n",
+    "                self.up += increment\n",
+    "            case \"down\":\n",
+    "                self.down += increment\n",
+    "            case \"right\":\n",
+    "                self.right += increment\n",
+    "            case \"left\":\n",
+    "                self.left += increment\n",
+    "            case _:\n",
+    "                raise Exception(\"No possible moves at ${current_position}\")\n",
+    "    # def add_to_qscore(self, increment):\n",
+    "    #     self.q_score += increment\n",
     "            \n",
     "\n",
     "# Init Q-Table\n",
@@ -74,40 +83,40 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 606,
+   "execution_count": 908,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "[[<__main__.QEntry at 0x22f60d844f0>,\n",
-       "  <__main__.QEntry at 0x22f60d876a0>,\n",
-       "  <__main__.QEntry at 0x22f60d857b0>,\n",
-       "  <__main__.QEntry at 0x22f60d85990>,\n",
-       "  <__main__.QEntry at 0x22f60d85510>],\n",
-       " [<__main__.QEntry at 0x22f60d85210>,\n",
-       "  <__main__.QEntry at 0x22f60d84850>,\n",
-       "  <__main__.QEntry at 0x22f60d85330>,\n",
-       "  <__main__.QEntry at 0x22f60d85660>,\n",
-       "  <__main__.QEntry at 0x22f60d85600>],\n",
-       " [<__main__.QEntry at 0x22f60d86e00>,\n",
-       "  <__main__.QEntry at 0x22f60d86f50>,\n",
-       "  <__main__.QEntry at 0x22f60d86dd0>,\n",
-       "  <__main__.QEntry at 0x22f60d86ce0>,\n",
-       "  <__main__.QEntry at 0x22f60d86d70>],\n",
-       " [<__main__.QEntry at 0x22f60d86cb0>,\n",
-       "  <__main__.QEntry at 0x22f60d84d60>,\n",
-       "  <__main__.QEntry at 0x22f60d85060>,\n",
-       "  <__main__.QEntry at 0x22f60d864d0>,\n",
-       "  <__main__.QEntry at 0x22f60d865c0>],\n",
-       " [<__main__.QEntry at 0x22f60d860e0>,\n",
-       "  <__main__.QEntry at 0x22f60d85750>,\n",
-       "  <__main__.QEntry at 0x22f60d85150>,\n",
-       "  <__main__.QEntry at 0x22f60d85ab0>,\n",
-       "  <__main__.QEntry at 0x22f60d85ae0>]]"
+       "[[<__main__.QEntry at 0x22f60da4a90>,\n",
+       "  <__main__.QEntry at 0x22f60ca3490>,\n",
+       "  <__main__.QEntry at 0x22f60ca2590>,\n",
+       "  <__main__.QEntry at 0x22f60ca1cf0>,\n",
+       "  <__main__.QEntry at 0x22f60ca3520>],\n",
+       " [<__main__.QEntry at 0x22f60ca1810>,\n",
+       "  <__main__.QEntry at 0x22f60ca3790>,\n",
+       "  <__main__.QEntry at 0x22f60ca2200>,\n",
+       "  <__main__.QEntry at 0x22f60d0efe0>,\n",
+       "  <__main__.QEntry at 0x22f60d0f9d0>],\n",
+       " [<__main__.QEntry at 0x22f60d0e380>,\n",
+       "  <__main__.QEntry at 0x22f60d0dc60>,\n",
+       "  <__main__.QEntry at 0x22f60d0e560>,\n",
+       "  <__main__.QEntry at 0x22f60d0f580>,\n",
+       "  <__main__.QEntry at 0x22f60d0e800>],\n",
+       " [<__main__.QEntry at 0x22f60d0f670>,\n",
+       "  <__main__.QEntry at 0x22f60d0e5f0>,\n",
+       "  <__main__.QEntry at 0x22f60d0d7b0>,\n",
+       "  <__main__.QEntry at 0x22f60d0d900>,\n",
+       "  <__main__.QEntry at 0x22f60d0f730>],\n",
+       " [<__main__.QEntry at 0x22f60d0f2e0>,\n",
+       "  <__main__.QEntry at 0x22f60d0d3f0>,\n",
+       "  <__main__.QEntry at 0x22f60d0e980>,\n",
+       "  <__main__.QEntry at 0x22f60d0e620>,\n",
+       "  <__main__.QEntry at 0x22f60d0da20>]]"
       ]
      },
-     "execution_count": 606,
+     "execution_count": 908,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -118,7 +127,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 599,
+   "execution_count": 909,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -139,7 +148,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 600,
+   "execution_count": 910,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -152,7 +161,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 601,
+   "execution_count": 911,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -200,16 +209,12 @@
     "        \n",
     "    # Find the entry in the q_table that contains the new state\n",
     "    return q_table[next_state[0]][next_state[1]]\n",
-    "    # for i in range(len(q_table)):\n",
-    "    #     # print(str(q_table[i].get_state()) + str(next_state))\n",
-    "    #     if q_table[i].get_state() == next_state:\n",
-    "    #         return q_table[i]\n",
     "        "
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 602,
+   "execution_count": 912,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -222,7 +227,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 603,
+   "execution_count": 913,
    "metadata": {},
    "outputs": [
     {
@@ -237,7 +242,7 @@
     {
      "data": {
       "text/plain": [
-       "{'up': 0, 'down': 0, 'left': 0, 'right': 0}"
+       "\"(1, 4){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
       ]
      },
      "metadata": {},
@@ -246,7 +251,3562 @@
     {
      "data": {
       "text/plain": [
-       "'(1, 4) 0'"
+       "\"(2, 4){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 0, 'down': 0.6, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 0.852, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 0, 'down': 1.7978399999999999, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 0.6, 'left': 0, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 0.6, 'left': 0.6, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 0, 'right': 0.852}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 0.6, 'left': 1.7978399999999999, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 0, 'right': 2.5478927999999996}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 0.6, 'left': 4.1870909759999995, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 0.852, 'down': 1.7978399999999999, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 2.1950928, 'left': 4.1870909759999995, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 3.5513782099199998, 'down': 1.7978399999999999, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 5.164708768166399, 'left': 4.1870909759999995, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 7.741107176517886, 'down': 1.7978399999999999, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 2.5478927999999996, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 7.741107176517886, 'down': 4.1870909759999995, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 7.418314934137511, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 7.741107176517886, 'down': 9.577619638737755, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 11.08185728957047, 'left': 4.1870909759999995, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 16.091930108744638, 'down': 9.577619638737755, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 15.008241156062372, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 16.091930108744638, 'down': 20.31212877977905, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 30.14263170599452, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 16.091930108744638, 'down': 41.69688560820837, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 60.312376343839844, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 60.312376343839844, 'down': 0.6, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 25.931198064412733, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 60.312376343839844, 'down': 12.331103187053346, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 62.234875354590564, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 0.6, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': False, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 0.6, 'right': 0}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 0, 'down': 0, 'left': 0.6, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 62.234875354590564, 'down': 0.6, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 26.738647648928033, 'down': 0, 'left': 0.6, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 62.234875354590564, 'down': 12.670232012549773, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 64.17275435742728, 'down': 0, 'left': 0.6, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 62.234875354590564, 'down': 45.29088164768914, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 116.58050374932623, 'down': 0, 'left': 0.6, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 62.234875354590564, 'down': 112.97104588148181, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 211.26054451927908, 'down': 0, 'left': 0.6, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 62.234875354590564, 'down': 247.48889293217175, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 60.312376343839844, 'down': 44.00219211080272, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 113.06002356083953, 'down': 247.48889293217175, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 400.31009735850284, 'down': 0, 'left': 0.6, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 0.6, 'right': 0.852}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 0.6, 'down': 0, 'left': 0, 'right': 0.852}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 0, 'down': 0.852, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0, 'down': 0, 'left': 0.6, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 0, 'down': 0, 'left': 0, 'right': 0.852}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 0, 'down': 0, 'left': 0.6, 'right': 0.852}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0, 'down': 0, 'left': 1.7978399999999999, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 0, 'right': 5.925628129919999}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 0, 'left': 0, 'right': 3.0887638145663994}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 1.8972808021178875, 'right': 5.925628129919999}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 22.873210851071406, 'left': 4.1870909759999995, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 1.8972808021178875, 'right': 18.502627939337987}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 22.873210851071406, 'left': 14.233031100921952, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 1.8972808021178875, 'right': 36.11042767252317}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 22.873210851071406, 'left': 35.69262316375047, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 1.8972808021178875, 'right': 66.14550047030764}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 0, 'left': 0, 'right': 7.413033154959359}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 0.6, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 0, 'down': 0, 'left': 0.6, 'right': 2.5478927999999996}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 1.6701149759999996, 'left': 0, 'right': 0}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 0.6, 'down': 0, 'left': 0.6, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 0, 'left': 1.7978399999999999, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 0.6, 'down': 0.852, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 1.7978399999999999, 'down': 0, 'left': 0, 'right': 0.852}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 0.6, 'down': 2.5478927999999996, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 4.1870909759999995, 'down': 0, 'left': 0, 'right': 0.852}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 0.6, 'down': 5.925628129919999, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 0.95784, 'left': 1.7978399999999999, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 1.3014482899199997, 'down': 0, 'left': 0.6, 'right': 2.5478927999999996}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 1.6701149759999996, 'left': 0, 'right': 0.852}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 3.1234758958079993, 'down': 0, 'left': 0.6, 'right': 2.5478927999999996}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 4.250020842639359, 'left': 0, 'right': 0.852}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 0.6, 'down': 1.3550927999999998, 'left': 0.6, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 4.250020842639359, 'left': 0, 'right': 2.361938976}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 6.75787500803973, 'down': 0, 'left': 0.6, 'right': 2.5478927999999996}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 0.95784, 'left': 4.1870909759999995, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 6.75787500803973, 'down': 0, 'left': 0.6, 'right': 5.925628129919999}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 9.388336683071788, 'left': 0, 'right': 2.361938976}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 0.6, 'down': 1.3550927999999998, 'left': 3.2250087539085306, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 0.852, 'left': 0, 'right': 7.413033154959359}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 6.3696670480479725, 'right': 66.14550047030764}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 0.852, 'left': 0, 'right': 38.7593566144723}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 4.55347392508293, 'down': 1.3550927999999998, 'left': 3.2250087539085306, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 0.95784, 'left': 9.300234869776686, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 14.004126418145773, 'down': 0, 'left': 0.6, 'right': 5.925628129919999}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 0.95784, 'left': 19.502061913308587, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 2.1950928, 'down': 5.925628129919999, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 4.4297398145664, 'left': 19.502061913308587, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 11.863995923589606, 'down': 5.925628129919999, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 8.950691180966398, 'down': 0, 'left': 0, 'right': 0.852}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 11.863995923589606, 'down': 12.655169677893884, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 18.44613891806839, 'down': 0, 'left': 0, 'right': 0.852}{'up': True, 'down': False, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 1.7978399999999999, 'right': 0.852}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 400.31009735850284, 'down': 0, 'left': 1.7978399999999999, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 1.7978399999999999, 'right': 169.92304089057117}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 18.44613891806839, 'down': 0, 'left': 0, 'right': 2.5478927999999996}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 11.863995923589606, 'down': 26.064615894640163, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 11.784514028300595, 'left': 19.502061913308587, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 25.400460296615055, 'down': 26.064615894640163, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 28.0454583153697, 'left': 19.502061913308587, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 47.93973690771635, 'down': 26.064615894640163, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 0.6, 'down': 59.998331142758445, 'left': 19.502061913308587, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 4.55347392508293, 'down': 6.403228565306207, 'left': 3.2250087539085306, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 9.388336683071788, 'left': 0, 'right': 5.261218243041583}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 14.004126418145773, 'down': 0, 'left': 0.6, 'right': 17.086745385477606}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 4.129355997428607, 'down': 59.998331142758445, 'left': 19.502061913308587, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 14.004126418145773, 'down': 0, 'left': 0.6, 'right': 49.720742619627195}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0, 'left': 0, 'right': 0.95784}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 14.004126418145773, 'down': 0, 'left': 1.8422928, 'right': 49.720742619627195}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 20.9201044182011, 'left': 0, 'right': 5.261218243041583}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 4.55347392508293, 'down': 6.403228565306207, 'left': 9.058113662362095, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 3.7052590485348307, 'left': 0, 'right': 38.7593566144723}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 23.253793273194468, 'down': 6.403228565306207, 'left': 9.058113662362095, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 4.129355997428607, 'down': 59.998331142758445, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 23.253793273194468, 'down': 34.76381907138724, 'left': 9.058113662362095, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 20.981902406382687, 'down': 59.998331142758445, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 92.91493075076144, 'down': 26.064615894640163, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 20.981902406382687, 'down': 123.62193451518162, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 182.6021155474423, 'down': 26.064615894640163, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 37.37173316104462, 'down': 0, 'left': 0, 'right': 2.5478927999999996}{'up': True, 'down': False, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 10.864354345588723, 'right': 169.92304089057117}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 37.37173316104462, 'down': 0, 'left': 0, 'right': 75.5347270940399}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 182.6021155474423, 'down': 52.786590180134965, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 129.6133149553882, 'down': 0, 'left': 0, 'right': 75.5347270940399}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 182.6021155474423, 'down': 128.93881853345198, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 20.981902406382687, 'down': 250.36359685118003, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 23.253793273194468, 'down': 74.46864577990068, 'left': 9.058113662362095, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 20.9201044182011, 'left': 0, 'right': 11.770113278450296}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 23.253793273194468, 'down': 74.46864577990068, 'left': 22.06780298295139, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 61.25149459649405, 'down': 250.36359685118003, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 361.3956724439148, 'down': 128.93881853345198, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 258.75152946746925, 'down': 0, 'left': 0, 'right': 75.5347270940399}{'up': True, 'down': False, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 47.534681463320965, 'right': 169.92304089057117}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 258.75152946746925, 'down': 0, 'left': 0, 'right': 177.71629510569574}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 361.3956724439148, 'down': 289.78998832316984, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 61.25149459649405, 'down': 502.8952180180963, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 717.7699329890811, 'down': 289.78998832316984, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 514.6383236809012, 'down': 0, 'left': 0, 'right': 177.71629510569574}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 717.7699329890811, 'down': 622.4540795984162, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 1022.5570250086757, 'down': 0, 'left': 0, 'right': 177.71629510569574}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 717.7699329890811, 'down': 1301.5096619414264, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 1978.813893027545, 'down': 0, 'left': 0, 'right': 177.71629510569574}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 717.7699329890811, 'down': 2653.815361789566, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 3885.5419021901807, 'down': 0, 'left': 0, 'right': 177.71629510569574}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 717.7699329890811, 'down': 5347.869105425269, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 7686.463687344865, 'down': 0, 'left': 0, 'right': 177.71629510569574}{'up': True, 'down': False, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 175.82419642498644, 'right': 169.92304089057117}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 7686.463687344865, 'down': 0, 'left': 0, 'right': 323.24897564646835}{'up': True, 'down': False, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 3475.0686236798238, 'right': 169.92304089057117}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 400.31009735850284, 'down': 0, 'left': 74.48465317403989, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 113.06002356083953, 'down': 515.2146909956116, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 777.4243065200609, 'down': 0, 'left': 74.48465317403989, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 113.06002356083953, 'down': 1048.4187761322817, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 1529.3299151036435, 'down': 0, 'left': 74.48465317403989, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 113.06002356083953, 'down': 2110.704850928724, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 60.312376343839844, 'down': 166.14840398663594, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 228.66636265956242, 'down': 2110.704850928724, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 3028.1579185351648, 'down': 0, 'left': 74.48465317403989, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 3475.0686236798238, 'right': 406.6224981373708}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 3028.1579185351648, 'down': 0, 'left': 1564.4073363891816, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 228.66636265956242, 'down': 4227.413117084983, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 6015.534595124924, 'down': 0, 'left': 1564.4073363891816, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 228.66636265956242, 'down': 8445.502893871444, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 11969.4596486009, 'down': 0, 'left': 1564.4073363891816, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 3475.0686236798238, 'right': 1841.6978231770881}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 7686.463687344865, 'down': 0, 'left': 0, 'right': 1912.6773878505815}{'up': True, 'down': False, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 8094.010821836596, 'right': 1841.6978231770881}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 11969.4596486009, 'down': 0, 'left': 3650.29909289038, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 228.66636265956242, 'down': 16851.477103832396, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 23835.463891650867, 'down': 0, 'left': 3650.29909289038, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 228.66636265956242, 'down': 33603.56277985872, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 47483.74581585187, 'down': 0, 'left': 3650.29909289038, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 228.66636265956242, 'down': 66988.76113446, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 60.312376343839844, 'down': 1119.7038029713544, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 16.091930108744638, 'down': 84.30683791590445, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 22.873210851071406, 'left': 78.35078262677986, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 25.796463645345526, 'right': 66.14550047030764}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 15.553955842690439, 'left': 0, 'right': 38.7593566144723}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 23.253793273194468, 'down': 210.00881476935655, 'left': 22.06780298295139, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 110.57924038289634, 'left': 0, 'right': 38.7593566144723}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 52.9939788815621, 'right': 66.14550047030764}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 22.873210851071406, 'left': 138.072205875021, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 56.036030855490026, 'down': 84.30683791590445, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 68.03136711617984, 'left': 138.072205875021, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 137.04076966519486, 'down': 84.30683791590445, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 153.4010372220336, 'left': 138.072205875021, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 52.9939788815621, 'right': 151.19402712593953}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 153.4010372220336, 'left': 257.402579617924, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 52.9939788815621, 'right': 320.38072141584337}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 110.57924038289634, 'left': 0, 'right': 82.64420945779042}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 121.2348513950034, 'right': 320.38072141584337}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 110.57924038289634, 'left': 0, 'right': 250.8617962355608}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 275.6907463719403, 'right': 320.38072141584337}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 110.57924038289634, 'left': 0, 'right': 486.3664177244393}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 590.840940364981, 'right': 320.38072141584337}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 110.57924038289634, 'left': 0, 'right': 929.6661797675071}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 1218.2371120133264, 'right': 320.38072141584337}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 110.57924038289634, 'left': 0, 'right': 1813.792238720107}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 2467.924697081102, 'right': 320.38072141584337}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 110.57924038289634, 'left': 0, 'right': 3576.4375069822127}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 79.5985915432887, 'down': 210.00881476935655, 'left': 22.06780298295139, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 61.25149459649405, 'down': 1006.1166770807488, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 79.5985915432887, 'down': 717.1813450510136, 'left': 22.06780298295139, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 243.6146387391846, 'left': 0, 'right': 3576.4375069822127}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 1614.1417810931332, 'down': 717.1813450510136, 'left': 22.06780298295139, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 20.9201044182011, 'left': 0, 'right': 48.3549898173887}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 28.992220841048542, 'down': 0, 'left': 1.8422928, 'right': 49.720742619627195}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 387.5682573565174, 'down': 1006.1166770807488, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 717.7699329890811, 'down': 10715.93149628022, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 387.5682573565174, 'down': 5909.85457635074, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 3487.616828252024, 'down': 10715.93149628022, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 387.5682573565174, 'down': 12775.087635328728, 'left': 48.785598578875444, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 28.992220841048542, 'down': 0, 'left': 1.8422928, 'right': 492.7780440413925}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 50.77085808572496, 'left': 0, 'right': 48.3549898173887}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 62.51286957347244, 'down': 0, 'left': 1.8422928, 'right': 492.7780440413925}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 278.6459798173998, 'left': 0, 'right': 48.3549898173887}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 1614.1417810931332, 'down': 717.1813450510136, 'left': 51.804019899435204, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 278.6459798173998, 'left': 0, 'right': 746.2365338034601}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 1614.1417810931332, 'down': 717.1813450510136, 'left': 386.5449720566625, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 1019.6000422939744, 'left': 0, 'right': 3576.4375069822127}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 3762.5022464629155, 'down': 717.1813450510136, 'left': 386.5449720566625, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 278.6459798173998, 'left': 0, 'right': 1723.2706953839602}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 205.14932892616932, 'down': 0, 'left': 1.8422928, 'right': 492.7780440413925}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 597.6711502417445, 'left': 0, 'right': 1723.2706953839602}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 3762.5022464629155, 'down': 717.1813450510136, 'left': 1265.5366529405908, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 387.5682573565174, 'down': 12775.087635328728, 'left': 275.8666165078105, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 10248.800366390898, 'down': 10715.93149628022, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 7686.463687344865, 'down': 0, 'left': 0, 'right': 6077.832888162184}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 10248.800366390898, 'down': 18231.218843477152, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 18418.761076543215, 'down': 0, 'left': 0, 'right': 6077.832888162184}{'up': True, 'down': False, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 8094.010821836596, 'right': 7606.150004860301}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 18418.761076543215, 'down': 0, 'left': 0, 'right': 11909.050588598428}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 10248.800366390898, 'down': 33260.186033016165, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 387.5682573565174, 'down': 22386.41391789791, 'left': 275.8666165078105, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 1011.5827525579003, 'down': 0, 'left': 1.8422928, 'right': 492.7780440413925}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 387.5682573565174, 'down': 22386.41391789791, 'left': 811.6780191852528, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 3762.5022464629155, 'down': 6370.190689909484, 'left': 1265.5366529405908, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 3218.6756500611077, 'down': 22386.41391789791, 'left': 811.6780191852528, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 3762.5022464629155, 'down': 18321.160811390397, 'left': 1265.5366529405908, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 12201.633450869516, 'down': 22386.41391789791, 'left': 811.6780191852528, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 23751.214358464378, 'down': 33260.186033016165, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 12201.633450869516, 'down': 45310.85761892387, 'left': 811.6780191852528, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 52282.86030179815, 'down': 33260.186033016165, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 12201.633450869516, 'down': 85394.60199324864, 'left': 811.6780191852528, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 1011.5827525579003, 'down': 0, 'left': 1.8422928, 'right': 10092.78310717507}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0, 'left': 0, 'right': 22.82368790024342}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 1011.5827525579003, 'down': 0, 'left': 12.765158838102234, 'right': 10092.78310717507}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0, 'left': 0, 'right': 4271.522068073869}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 0){'up': 0, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0.6, 'left': 0, 'right': 4271.522068073869}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 1011.5827525579003, 'down': 0, 'left': 1812.5104909643683, 'right': 10092.78310717507}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 12201.633450869516, 'down': 85394.60199324864, 'left': 5375.918131872883, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 3762.5022464629155, 'down': 35052.518981463676, 'left': 1265.5366529405908, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 31804.944803432067, 'down': 85394.60199324864, 'left': 5375.918131872883, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 3762.5022464629155, 'down': 84939.85941121358, 'left': 1265.5366529405908, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 3008.2910027259886, 'left': 0, 'right': 3576.4375069822127}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 4957.798328846072, 'right': 320.38072141584337}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 153.4010372220336, 'left': 495.52351445974784, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 256.8855131645269, 'down': 84.30683791590445, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 120.44619880605565, 'down': 1119.7038029713544, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 791.0085049713563, 'down': 66988.76113446, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 94613.12381866582, 'down': 0, 'left': 3650.29909289038, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 791.0085049713563, 'down': 133522.37759208365, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 188538.37193480728, 'down': 0, 'left': 3650.29909289038, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 19068.094802719384, 'right': 7606.150004860301}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 188538.37193480728, 'down': 0, 'left': 13119.618547188673, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 791.0085049713563, 'down': 266118.04484153615, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 375723.89954217535, 'down': 0, 'left': 13119.618547188673, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 791.0085049713563, 'down': 530369.9005858642, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 748769.4176051085, 'down': 0, 'left': 13119.618547188673, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 19068.094802719384, 'right': 89835.32621942347}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 748769.4176051085, 'down': 0, 'left': 56098.902978221995, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 791.0085049713563, 'down': 1057001.6162143555, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 120.44619880605565, 'down': 29703.465000633096, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 4){'up': 256.8855131645269, 'down': 588.905170330235, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 4){'up': 416.5648498671766, 'down': 29703.465000633096, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 13583.467207225796, 'down': 1057001.6162143555, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 1492218.4634571811, 'down': 0, 'left': 56098.902978221995, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 19068.094802719384, 'right': 440253.2121013383}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 1492218.4634571811, 'down': 0, 'left': 263445.4132520729, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 4){'up': 13583.467207225796, 'down': 2106534.6173521136, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 2973850.9881279413, 'down': 0, 'left': 263445.4132520729, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 19068.094802719384, 'right': 1243086.8515938898}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 4){'up': 2973850.9881279413, 'down': 0, 'left': 890920.6562223356, 'right': 0}{'up': True, 'down': False, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 3){'up': 0, 'down': 0, 'left': 19068.094802719384, 'right': 2989339.6072451808}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 39756.14364102729, 'down': 0, 'left': 0, 'right': 11909.050588598428}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 109062.33725968184, 'down': 33260.186033016165, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 101465.38274650456, 'down': 0, 'left': 0, 'right': 11909.050588598428}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 109062.33725968184, 'down': 89180.32119975454, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 80202.2636775146, 'down': 85394.60199324864, 'left': 5375.918131872883, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 1011.5827525579003, 'down': 0, 'left': 1812.5104909643683, 'right': 49996.22918720952}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0.6, 'left': 0, 'right': 10219.699800316946}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 1011.5827525579003, 'down': 0, 'left': 6830.388603483232, 'right': 49996.22918720952}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0.6, 'left': 0, 'right': 35306.59597907172}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 1011.5827525579003, 'down': 0, 'left': 24391.914356086647, 'right': 49996.22918720952}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 597.6711502417445, 'left': 0, 'right': 3993.4299170519685}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 6770.206897980611, 'down': 84939.85941121358, 'left': 1265.5366529405908, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 80202.2636775146, 'down': 85394.60199324864, 'left': 28525.301643250034, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 6770.206897980611, 'down': 154782.13601286343, 'left': 1265.5366529405908, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 177292.26627392307, 'down': 85394.60199324864, 'left': 28525.301643250034, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 3094.0564187428868, 'down': 0, 'left': 24391.914356086647, 'right': 49996.22918720952}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 177292.26627392307, 'down': 85394.60199324864, 'left': 60934.438559178045, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 188553.605000719, 'down': 89180.32119975454, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(4, 2){'up': 187858.31749417275, 'down': 0, 'left': 0, 'right': 11909.050588598428}{'up': True, 'down': False, 'right': True, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 188553.605000719, 'down': 203753.5430272089, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 177292.26627392307, 'down': 198745.55689085007, 'left': 60934.438559178045, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 6770.206897980611, 'down': 291158.3422530565, 'left': 1265.5366529405908, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 597.6711502417445, 'left': 0, 'right': 41266.14283658245}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 6770.206897980611, 'down': 291158.3422530565, 'left': 19104.131305481453, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 3008.2910027259886, 'left': 0, 'right': 7089.887807890447}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 4957.798328846072, 'right': 657.2528860552748}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 3008.2910027259886, 'left': 0, 'right': 12008.718229161976}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 12456.642536486843, 'down': 291158.3422530565, 'left': 19104.131305481453, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 126498.7111501001, 'left': 0, 'right': 12008.718229161976}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 70569.35823412362, 'down': 291158.3422530565, 'left': 19104.131305481453, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 370496.27652977605, 'down': 198745.55689085007, 'left': 60934.438559178045, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 70569.35823412362, 'down': 563230.715296785, 'left': 19104.131305481453, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 597.6711502417445, 'left': 0, 'right': 180059.70371749913}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 70569.35823412362, 'down': 563230.715296785, 'left': 102371.45938902366, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 299385.2993564239, 'left': 0, 'right': 12008.718229161976}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 11985.17931663253, 'right': 657.2528860552748}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 299385.2993564239, 'left': 0, 'right': 21846.580833812426}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 142521.67677298357, 'right': 657.2528860552748}{'up': False, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 4){'up': 0, 'down': 323.25336763994835, 'left': 495.52351445974784, 'right': 0}{'up': False, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 142521.67677298357, 'right': 1128.8739165504787}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 299385.2993564239, 'left': 0, 'right': 90444.9174119905}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 325272.773211875, 'right': 1128.8739165504787}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 299385.2993564239, 'left': 0, 'right': 263238.0491257742}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 581124.308226323, 'right': 1128.8739165504787}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 299385.2993564239, 'left': 0, 'right': 612606.0782311395}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 224539.52725747108, 'down': 563230.715296785, 'left': 102371.45938902366, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 597.6711502417445, 'left': 0, 'right': 488641.0856291484}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 224539.52725747108, 'down': 563230.715296785, 'left': 348549.8991088754, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 655696.9195236431, 'left': 0, 'right': 612606.0782311395}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 589748.6443603896, 'down': 563230.715296785, 'left': 348549.8991088754, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 1165670.7179644639, 'left': 0, 'right': 612606.0782311395}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 1315230.4036496202, 'down': 563230.715296785, 'left': 348549.8991088754, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 2184336.37468309, 'left': 0, 'right': 612606.0782311395}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 2758744.442476366, 'down': 563230.715296785, 'left': 348549.8991088754, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 755252.2875663361, 'down': 198745.55689085007, 'left': 60934.438559178045, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 3094.0564187428868, 'down': 0, 'left': 24391.914356086647, 'right': 144458.07269714103}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0.6, 'left': 0, 'right': 70428.2506293284}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 3094.0564187428868, 'down': 0, 'left': 63729.145362839234, 'right': 144458.07269714103}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 755252.2875663361, 'down': 198745.55689085007, 'left': 145981.20451564848, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 2){'up': 347448.78089516365, 'down': 203753.5430272089, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 755252.2875663361, 'down': 424172.86762315885, 'left': 145981.20451564848, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 2758744.442476366, 'down': 1105729.5621933602, 'left': 348549.8991088754, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 4216744.1903964, 'left': 0, 'right': 612606.0782311395}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 3){'up': 0, 'down': 0, 'left': 1070869.1843739308, 'right': 1128.8739165504787}{'up': False, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(0, 2){'up': 0, 'down': 4216744.1903964, 'left': 0, 'right': 1307414.1669606462}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 5633275.379433401, 'down': 1105729.5621933602, 'left': 348549.8991088754, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 597.6711502417445, 'left': 0, 'right': 920655.0203054574}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 3094.0564187428868, 'down': 0, 'left': 63729.145362839234, 'right': 519447.86255385855}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0.6, 'left': 0, 'right': 159272.541413859}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 3094.0564187428868, 'down': 0, 'left': 156115.8709017957, 'right': 519447.86255385855}{'up': True, 'down': False, 'right': True, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 219005.441882959, 'left': 0, 'right': 920655.0203054574}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 5633275.379433401, 'down': 1105729.5621933602, 'left': 874645.5672807177, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 219005.441882959, 'left': 0, 'right': 3654893.2877896684}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 391007.3875145321, 'down': 0, 'left': 156115.8709017957, 'right': 519447.86255385855}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 0.6, 'left': 0, 'right': 441150.2602520232}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 0){'up': 1794.639268591025, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 755.1884928082304, 'left': 0, 'right': 441150.2602520232}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 391007.3875145321, 'down': 0, 'left': 403845.92856836366, 'right': 519447.86255385855}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 755.1884928082304, 'left': 0, 'right': 835779.0666254531}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 0){'up': 187796.20428187714, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 79932.26968831992, 'left': 0, 'right': 835779.0666254531}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 391007.3875145321, 'down': 0, 'left': 916412.1079783994, 'right': 519447.86255385855}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 79932.26968831992, 'left': 0, 'right': 1554984.378626562}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 391007.3875145321, 'down': 0, 'left': 1936070.990192915, 'right': 519447.86255385855}{'up': True, 'down': False, 'right': True, 'left': True} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 2){'up': 2216026.4684329443, 'down': 424172.86762315885, 'left': 145981.20451564848, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} up\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 2){'up': 5633275.379433401, 'down': 1105729.5621933602, 'left': 2759559.575064665, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(1, 1){'up': 0, 'down': 524776.3209087632, 'left': 0, 'right': 3654893.2877896684}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 391007.3875145321, 'down': 0, 'left': 1936070.990192915, 'right': 1657958.7243172387}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 79932.26968831992, 'left': 0, 'right': 2990128.5459582107}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 391007.3875145321, 'down': 0, 'left': 3966353.9755725292, 'right': 1657958.7243172387}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 79932.26968831992, 'left': 0, 'right': 5852049.2340819575}{'up': False, 'down': True, 'right': True, 'left': False} right\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 1){'up': 391007.3875145321, 'down': 0, 'left': 8010756.844115963, 'right': 1657958.7243172387}{'up': True, 'down': False, 'right': True, 'left': True} left\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(2, 0){'up': 0, 'down': 79932.26968831992, 'left': 0, 'right': 11557387.402243445}{'up': False, 'down': True, 'right': True, 'left': False} down\""
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/plain": [
+       "\"(3, 0){'up': 613942.4939773183, 'down': 0, 'left': 0, 'right': 0}{'up': True, 'down': True, 'right': False, 'left': False} down\""
       ]
      },
      "metadata": {},
@@ -260,78 +3820,53 @@
     "\n",
     "current_row_index, current_column_index = start_row_index, start_column_index\n",
     "\n",
-    "# while True:\n",
-    "# Get current state\n",
-    "entry = q_table[current_row_index][current_column_index]\n",
-    "state = entry.get_state()\n",
-    "state_q_positions = entry.get_positions()\n",
-    "possible_movements = get_possible_actions(state[0], state[1])\n",
+    "while True:\n",
+    "    # Get current state\n",
+    "    entry = q_table[current_row_index][current_column_index]\n",
+    "    state = entry.get_state()\n",
+    "    state_q_positions = entry.get_positions()\n",
+    "    possible_movements = get_possible_actions(state[0], state[1])\n",
     "\n",
-    "# Get next move\n",
-    "next_move = get_next_move(possible_movements)\n",
-    "display(str(state) + str(state_q_positions) + str(possible_movements) + \" \" + str(next_move))\n",
+    "    # Get next move\n",
+    "    next_move = get_next_move(possible_movements)\n",
+    "    display(str(state) + str(state_q_positions) + str(possible_movements) + \" \" + str(next_move))\n",
     "\n",
-    "# Get new state\n",
-    "# next_state = iterate_to_next_move(state, get_next_move(possible_movements))\n",
-    "# next_entry = q_table[next_state[0]][next_state[1]]\n",
-    "# display(str(next_state) + str(next_entry.get_state()))\n",
-    "display(state_q_positions)\n",
-    "# Using Bellman equation to find the Q-values\n",
-    "old = state_q_positions[next_move]\n",
-    "next_q_obj = get_next_move_qtable(state, next_move)\n",
-    "next_q = max(list(next_q_obj.get_positions().values()))\n",
-    "display(str(next_q_obj.get_state()) + \" \" + str(next_q))\n",
-    "# q_table[state[0]][state[1]]. += bellman_equation(state, old, next_q)\n",
+    "    # display(state_q_positions)\n",
+    "    # Using Bellman equation to find the Q-values\n",
+    "    old = state_q_positions[next_move]\n",
+    "    next_q_obj = get_next_move_qtable(state, next_move)\n",
+    "    next_q = max(list(next_q_obj.get_positions().values()))\n",
+    "    # print(str(next_q_obj.get_state()) + \" old: {} next_q: {}\".format(old, next_q))\n",
+    "    # display(bellman_equation(state, old, next_q))\n",
+    "    # Update the Q-value in the Q-table\n",
+    "    q_table[state[0]][state[1]].add_to_positions(bellman_equation(state, old, next_q), next_move)\n",
     "\n",
-    "    # if "
+    "    # Update for the next iteration\n",
+    "    next_state = next_q_obj.get_state()\n",
+    "    current_row_index, current_column_index = next_state[0], next_state[1]\n",
+    "\n",
+    "    if current_row_index == end_row_index and current_column_index == end_column_index:\n",
+    "        break;"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 604,
+   "execution_count": 914,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'up': 0, 'down': 0, 'left': 0, 'right': 0}"
+      ]
+     },
+     "execution_count": 914,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
-    "# MAZE=[[0,0,1,1,1],\n",
-    "#       [0,1,1,0,1],\n",
-    "#       [1,1,1,0,1],\n",
-    "#       [1,0,1,0,1],\n",
-    "#       [1,0,1,1,1]]\n",
-    "#REWARDS_TABLE = [[0,0,1,1,1],\n",
-    "#                 [0,1,1,0,1],\n",
-    "#                 [1,1,1,0,1],\n",
-    "#                 [1,0,1,0,1],\n",
-    "#                 [100,0,1,1,1]]\n",
-    "\n",
-    "# for entry in q_table:\n",
-    "#     state = entry.get_state()\n",
-    "#     state_movements = entry.get_positions()\n",
-    "    \n",
-    "#     possible_movements = get_possible_actions(state[0], state[1])\n",
-    "#     display(str(possible_movements) + str(next_move(possible_movements)))\n",
-    "    # for key, value in possible_movements.items():\n",
-    "    #     if value == True:\n",
-    "        # old = state_movements[key]\n",
-    "        # get_possible_actions(state, key)\n",
-    "        # next_q_obj = get_next_move_qtable(state, key)\n",
-    "        # next_q = max(list(next_q_obj.get_positions().values()))\n",
-    "        # state_movements[key] = bellman_equation(state, old, next_q)\n",
-    "\n",
-    "#     display(str(state) + str(state_movements))"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 605,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "# get_possible_actions(2,1)\n",
-    "# \n",
-    "\n",
-    "# bellman_equation = lambda alpha, gamma, reward : (1 - alpha) * q(s,a) + alpha * (reward + gamma * max(q'))\n",
-    "\n",
-    "# bellman_equation = lambda alpha, gamma, reward : (1 - alpha) * q(s,a) + alpha * (reward + gamma * max(q'))"
+    "q_table[current_row_index][current_column_index].get_positions()"
    ]
   }
  ],
